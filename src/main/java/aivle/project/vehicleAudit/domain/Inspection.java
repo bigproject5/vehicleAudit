@@ -42,9 +42,9 @@ public class Inspection {
     @Column(name = "collect_data_path", nullable = false)
     private String collectDataPath;
 
-    @Column(name = "result_data_path", nullable = true)
+    @Column(name = "result_data_path")
     private String resultDataPath;
 
-    @Column(name = "solution", nullable = true, length = 500)
+    @Column(name = "solution", length = 500)
     private String aiSuggestion;
 }

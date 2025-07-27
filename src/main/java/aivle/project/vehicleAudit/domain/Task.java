@@ -29,9 +29,9 @@ public class Task {
     @Column(name = "started_at", nullable = false)
     private LocalDateTime startedAt;
 
-    @Column(name = "finished_at", nullable = true)
+    @Column(name = "finished_at")
     private LocalDateTime finishedAt;
 
-    @Column(name = "resolve", nullable = true, length = 300)
+    @Column(name = "resolve", length = 300)
     private String resolve;
 }
