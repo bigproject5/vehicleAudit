@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -49,4 +50,8 @@ public class Inspection {
 
     @Column(name = "solution", length = 500)
     private String aiSuggestion;
+
+    @OneToOne
+    @JoinColumn(name = "task_id")
+    private Task task;
 }
