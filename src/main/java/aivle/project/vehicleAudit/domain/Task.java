@@ -9,11 +9,13 @@ import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
 @Entity
 @Table(name = "task")
 @Getter
+@Setter
 @NoArgsConstructor
 public class Task {
     @Id
