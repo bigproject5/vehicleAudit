@@ -34,6 +34,6 @@ public class Task {
     @Column(name = "finished_at")
     private LocalDateTime finishedAt;
 
-    @Column(name = "resolve", length = 300)
+    @Column(name = "resolve", length = 500)
     private String resolve;
 }

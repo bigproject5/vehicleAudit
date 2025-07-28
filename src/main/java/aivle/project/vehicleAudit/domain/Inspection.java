@@ -48,10 +48,13 @@ public class Inspection {
     @Column(name = "result_data_path")
     private String resultDataPath;
 
-    @Column(name = "solution", length = 500)
+    @Column(name = "solution", length = 300)
     private String aiSuggestion;
 
     @OneToOne
     @JoinColumn(name = "task_id")
     private Task task;
+
+    @Column(name = "diagnosis_result")
+    private String diagnosisResult;
 }
