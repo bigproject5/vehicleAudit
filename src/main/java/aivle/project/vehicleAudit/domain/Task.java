@@ -36,6 +36,27 @@ public class Task {
     @Column(name = "finished_at")
     private LocalDateTime finishedAt;
 
-    @Column(name = "resolve", length = 500)
-    private String resolve;
+    @Column(name = "resolve", length = 500, nullable = false)
+    private String resolve = "";
+
+    public void allocateWorker(Long workerId, String workerName) {
+        this.workerId = workerId;
+        this.workerName = workerName;
+    }
+
+    public void done(Long workerId) {
+        if (!this.workerId.equals(workerId)) {
+            throw new IllegalStateException("작업을 완료할 수 없습니다. 작업자가 일치하지 않습니다.");
+        }
+        this.finishedAt = LocalDateTime.now();
+    }
+    public void modifyResolve(Long workerId, String resolve) {
+        if (!this.workerId.equals(workerId)) {
+            throw new IllegalStateException("조치 내용을 수정할 수 없습니다. 작업자가 일치하지 않습니다.");
+        }
+        if (resolve.isBlank()) {
+            throw new IllegalArgumentException("조치 내용을 비워둘 수 없습니다.");
+        }
+        this.resolve = resolve;
+    }
 }
