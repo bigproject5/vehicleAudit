@@ -103,4 +103,14 @@ public class AuditController {
         }
         throw new IllegalArgumentException("Invalid request: status or resolve must be provided");
     }
+
+    //Test용 API 진단 완료 처리
+    @PatchMapping("/inspections/{inspectionId}/diagnosis-complete")
+    public ResponseEntity<ResponseDTO<InspectionDTO>> completeDiagnosis(
+            @PathVariable Long inspectionId
+    ) {
+        log.info("Received request to complete diagnosis for inspection ID: {}", inspectionId);
+        Inspection inspection = auditService.diagnosisComplete(inspectionId);
+        return ResponseEntity.ok().body(ResponseDTO.success(inspectionMapper.toDto(inspection)));
+    }
 }
