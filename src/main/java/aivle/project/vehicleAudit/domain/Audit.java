@@ -38,4 +38,12 @@ public class Audit {
     @CreatedDate
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
+
+    public void addInspection(Inspection inspection) {
+        inspections.add(inspection);
+    }
+
+    public void init() {
+        status = AuditStatus.IN_PROGRESS;
+    }
 }
