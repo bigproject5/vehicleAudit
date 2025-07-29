@@ -15,11 +15,13 @@ public interface InspectionMapper {
     @Mapping(target="collectDataPath", source = "collectDataPath")
     Inspection toEntity(InspectionCreateDTO dto);
 
+    @Mapping(target = "inspectionId", source = "id")
     InspectionDTO toDto(Inspection inspection);
 
     @Mapping(target = "workerId", source = "task.workerId")
     @Mapping(target = "workerName", source = "task.workerName")
     @Mapping(target = "taskStartedAt", source = "task.startedAt")
     @Mapping(target = "taskFinishedAt", source = "task.finishedAt")
+    @Mapping(target = "inspectionId", source = "id")
     InspectionSummaryDTO toSummaryDto(Inspection inspection);
 }

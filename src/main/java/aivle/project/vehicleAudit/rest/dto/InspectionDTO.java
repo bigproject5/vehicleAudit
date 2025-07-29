@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public record InspectionDTO(
         Long inspectionId,
         Long auditId,
-        String type,
+        String inspectionType,
         String status,
         boolean isDefect,
         String collectDataPath,
