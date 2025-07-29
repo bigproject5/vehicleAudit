@@ -2,6 +2,7 @@ package aivle.project.vehicleAudit.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -11,12 +12,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Table(name = "task")
 @Getter
 @Setter
 @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +39,7 @@ public class Task {
     @Column(name = "finished_at")
     private LocalDateTime finishedAt;
 
-    @Column(name = "resolve", length = 500, nullable = false)
+    @Column(name = "resolve", length = 1000, nullable = false)
     private String resolve = "";
 
     public void allocateWorker(Long workerId, String workerName) {
