@@ -2,6 +2,7 @@ package aivle.project.vehicleAudit.domain;
 
 import aivle.project.vehicleAudit.domain.enumerate.InspectionStatus;
 import aivle.project.vehicleAudit.domain.enumerate.InspectionType;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -53,10 +54,63 @@ public class Inspection {
     @Column(name = "solution", length = 300)
     private String aiSuggestion;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "task_id")
     private Task task;
 
     @Column(name = "diagnosis_result")
     private String diagnosisResult;
+
+    public void init() {
+        this.status = InspectionStatus.IN_DIAGNOSIS;
+        this.isDefect = false;
+        this.resultDataPath = "";
+        this.aiSuggestion = "";
+        this.diagnosisResult = "";
+    }
+
+    public void addToAudit(Audit audit) {
+        this.audit = audit;
+        audit.addInspection(this);
+    }
+
+    public void startTask(Long workerId, String workerName) {
+        if (status == InspectionStatus.IN_DIAGNOSIS) {
+            throw new RuntimeException("진단 중인 검사입니다. 작업을 시작할 수 없습니다.");
+        }
+        if (status == InspectionStatus.NORMAL) {
+            throw new RuntimeException("이상이 없는 검사입니다. 작업을 시작할 수 없습니다.");
+        }
+        if (status == InspectionStatus.IN_ACTION) {
+            throw new RuntimeException("이미 작업이 진행 중인 검사입니다.");
+        }
+        if (status == InspectionStatus.COMPLETED) {
+            throw new RuntimeException("이미 완료된 검사입니다.");
+        }
+        Task task = new Task();
+        task.allocateWorker(workerId, workerName);
+        this.task = task;
+        this.status = InspectionStatus.IN_ACTION;
+    }
+
+    public void finishTask(long workerId) {
+        if (status == InspectionStatus.COMPLETED) {
+            throw new RuntimeException("이미 완료된 검사입니다.");
+        }
+        if (status != InspectionStatus.IN_ACTION) {
+            throw new RuntimeException("작업이 진행 중이지 않습니다. 작업을 완료할 수 없습니다.");
+        }
+        task.done(workerId);
+        this.status = InspectionStatus.COMPLETED;
+    }
+
+    public void modifyResolve(Long workerId, String resolve) {
+        if (status == InspectionStatus.COMPLETED) {
+            throw new RuntimeException("이미 완료된 검사입니다. 작업을 수정할 수 없습니다.");
+        }
+        if (status != InspectionStatus.IN_ACTION) {
+            throw new RuntimeException("작업이 진행 중이지 않습니다. 작업을 수정할 수 없습니다.");
+        }
+        task.modifyResolve(workerId, resolve);
+    }
 }
