@@ -16,4 +16,5 @@ public interface AuditService {
     Inspection finishTaskOnInspection(Long inspectionId, Long workerId, String workerName);
     Inspection findByInspectionId(Long inspectionId);
     Inspection updateTaskResolve(Long inspectionId, Long workerId, String resolve);
+    Inspection diagnosisComplete(Long inspectionId); // 테스트용 진단 완료 처리
 }

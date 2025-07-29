@@ -1,6 +1,7 @@
 package aivle.project.vehicleAudit.service;
 
 import aivle.project.vehicleAudit.domain.*;
+import aivle.project.vehicleAudit.domain.enumerate.InspectionStatus;
 import aivle.project.vehicleAudit.repository.AuditRepository;
 import aivle.project.vehicleAudit.repository.InspectionRepository;
 import aivle.project.vehicleAudit.repository.TaskRepository;
@@ -88,5 +89,18 @@ public class AuditServiceImpl implements AuditService {
                 .orElseThrow(() -> new RuntimeException("해당 검사(Inspection)가 존재하지 않습니다."));
         inspection.modifyResolve(workerId, resolve);
         return inspection;
+    }
+
+    // 테스트용 진단 완료 처리 메서드 진단 이상이 있는 것으로 가정
+    @Override
+    @Transactional
+    public Inspection diagnosisComplete(Long inspectionId) {
+        Inspection inspection = inspectionRepository.findById(inspectionId)
+                .orElseThrow(() -> new RuntimeException("해당 검사(Inspection)가 존재하지 않습니다."));
+        inspection.setAiSuggestion("AI 제안");
+        inspection.setResultDataPath("result/data/path");
+        inspection.setDiagnosisResult("진단 결과");
+        inspection.setStatus(InspectionStatus.ABNORMAL);
+        return inspectionRepository.save(inspection);
     }
 }
