@@ -3,6 +3,7 @@ package aivle.project.vehicleAudit.rest;
 import aivle.project.vehicleAudit.domain.Audit;
 import aivle.project.vehicleAudit.domain.Inspection;
 import aivle.project.vehicleAudit.domain.enumerate.InspectionStatus;
+import aivle.project.vehicleAudit.domain.enumerate.InspectionType;
 import aivle.project.vehicleAudit.rest.dto.AuditCreateDTO;
 import aivle.project.vehicleAudit.rest.dto.AuditDTO;
 import aivle.project.vehicleAudit.rest.dto.AuditSummaryDTO;
@@ -12,11 +13,15 @@ import aivle.project.vehicleAudit.rest.dto.ResponseDTO;
 import aivle.project.vehicleAudit.rest.mapper.AuditMapper;
 import aivle.project.vehicleAudit.rest.mapper.InspectionMapper;
 import aivle.project.vehicleAudit.service.AuditService;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -63,13 +68,6 @@ public class AuditController {
         return ResponseEntity.ok().body(ResponseDTO.success(auditMapper.toDto(audit)));
     }
 
-    @GetMapping("/inspections")
-    public ResponseEntity<ResponseDTO<Page<InspectionSummaryDTO>>> getInspectionsByWorkerId(@RequestParam Long workerId, Pageable pageable) {
-        log.info("Received request to get inspections by worker ID: {}", workerId);
-        Page<Inspection> inspections = auditService.findInspectionsByWorkerId(workerId, pageable);
-        return ResponseEntity.ok().body(ResponseDTO.success(inspections.map(inspectionMapper::toSummaryDto)));
-    }
-
     @GetMapping("/inspections/{inspectionId}")
     public ResponseEntity<ResponseDTO<InspectionDTO>> getInspectionById(@PathVariable Long inspectionId) {
         log.info("Received request to get inspection by ID: {}", inspectionId);
@@ -112,5 +110,26 @@ public class AuditController {
         log.info("Received request to complete diagnosis for inspection ID: {}", inspectionId);
         Inspection inspection = auditService.diagnosisComplete(inspectionId);
         return ResponseEntity.ok().body(ResponseDTO.success(inspectionMapper.toDto(inspection)));
+    }
+
+    @GetMapping("/inspections")
+    public ResponseEntity<ResponseDTO<Page<InspectionSummaryDTO>>> searchInspections(
+            @RequestParam(required = false) InspectionType inspectionType,
+            @RequestParam(required = false) Long workerId,
+            @RequestParam(required = false) InspectionStatus status,
+            Pageable pageable
+    ) {
+        log.info("Received request to search inspections with type: {}, workerId: {}, status: {}",
+                inspectionType, workerId, status);
+
+        // inspectionId 기준 최신순 정렬 적용
+        Pageable sortedPageable = PageRequest.of(
+                pageable.getPageNumber(),
+                pageable.getPageSize(),
+                Sort.by(Sort.Direction.DESC, "id")
+        );
+
+        Page<Inspection> inspections = auditService.searchInspections(inspectionType, workerId, status, sortedPageable);
+        return ResponseEntity.ok().body(ResponseDTO.success(inspections.map(inspectionMapper::toSummaryDto)));
     }
 }
