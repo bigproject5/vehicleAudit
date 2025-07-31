@@ -2,9 +2,11 @@ package aivle.project.vehicleAudit.service;
 
 import aivle.project.vehicleAudit.domain.*;
 import aivle.project.vehicleAudit.domain.enumerate.InspectionStatus;
+import aivle.project.vehicleAudit.domain.enumerate.InspectionType;
 import aivle.project.vehicleAudit.repository.AuditRepository;
 import aivle.project.vehicleAudit.repository.InspectionRepository;
 import aivle.project.vehicleAudit.repository.TaskRepository;
+import com.querydsl.core.BooleanBuilder;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -102,5 +104,30 @@ public class AuditServiceImpl implements AuditService {
         inspection.setDiagnosisResult("진단 결과");
         inspection.setStatus(InspectionStatus.ABNORMAL);
         return inspectionRepository.save(inspection);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Inspection> searchInspections(InspectionType inspectionType, Long workerId, InspectionStatus status, Pageable pageable) {
+        BooleanBuilder builder = new BooleanBuilder();
+        QInspection inspection = QInspection.inspection;
+        QTask task = QTask.task;
+
+        // inspectionType 필터링
+        if (inspectionType != null) {
+            builder.and(inspection.inspectionType.eq(inspectionType));
+        }
+
+        // status 필터링
+        if (status != null) {
+            builder.and(inspection.status.eq(status));
+        }
+
+        // workerId 필터링 (task 조인 필요)
+        if (workerId != null) {
+            builder.and(inspection.task.workerId.eq(workerId));
+        }
+
+        return inspectionRepository.findAll(builder, pageable);
     }
 }
