@@ -3,6 +3,8 @@ package aivle.project.vehicleAudit.service;
 import aivle.project.vehicleAudit.domain.*;
 import aivle.project.vehicleAudit.domain.enumerate.InspectionStatus;
 import aivle.project.vehicleAudit.domain.enumerate.InspectionType;
+import aivle.project.vehicleAudit.event.TestStartedEventDTO;
+import aivle.project.vehicleAudit.event.WorkerTaskCompletedEventDTO;
 import aivle.project.vehicleAudit.repository.AuditRepository;
 import aivle.project.vehicleAudit.repository.InspectionRepository;
 import aivle.project.vehicleAudit.repository.TaskRepository;
@@ -15,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import aivle.project.vehicleAudit.domain.Inspection;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -24,6 +28,7 @@ public class AuditServiceImpl implements AuditService {
     private final AuditRepository auditRepository;
     private final InspectionRepository inspectionRepository;
     private final TaskRepository taskRepository;
+    private final VehicleAuditEventProducer eventProducer;
 
     @Override
     @Transactional
@@ -33,7 +38,21 @@ public class AuditServiceImpl implements AuditService {
             inspection.init();
             inspection.addToAudit(audit);  // Inspection에 Audit 설정
         });
-        return auditRepository.save(audit);
+        ///////////////////////////////////////////////
+        Audit savedAudit = auditRepository.save(audit);
+        inspections.forEach(inspection -> {
+            TestStartedEventDTO event = new TestStartedEventDTO(
+                    savedAudit.getId(),
+                    savedAudit.getModel(),
+                    savedAudit.getLineCode(),
+                    inspection.getInspectionType().name(),
+                    inspection.getCollectDataPath()
+            );
+            eventProducer.sendTestStartedEvent(event);
+        });
+
+        return savedAudit;
+        //////////////////////////////////////////////////
     }
 
 
@@ -74,8 +93,24 @@ public class AuditServiceImpl implements AuditService {
         Inspection inspection = inspectionRepository.findWithTaskById(inspectionId)
                 .orElseThrow(() -> new RuntimeException("해당 검사(Inspection)가 존재하지 않습니다."));
         inspection.finishTask(workerId);
+        /// ////////////////////////////////////////
+        WorkerTaskCompletedEventDTO event = new WorkerTaskCompletedEventDTO(
+                inspection.getTask().getWorkerName(),
+                inspection.getTask().getResolve(),
+                inspection.getAudit().getId(),
+                inspection.getId(),
+                inspection.getTask().getWorkerId(),
+                inspection.getTask().getStartedAt(),
+                inspection.getTask().getEndedAt(),
+                inspection.getType().toString()
+        );
+
+        eventProducer.sendWorkerTaskCompletedEvent(event);
+        ///  /////////////////////////////////////////
         return inspectionRepository.save(inspection);
     }
+
+
 
     @Override
     @Transactional

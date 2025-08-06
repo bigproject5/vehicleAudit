@@ -36,7 +36,7 @@ public class Inspection {
 
     @Column(name = "type", nullable = false)
     @Enumerated(EnumType.STRING)
-    private InspectionType inspectionType;
+    private InspectionType type;
 
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
@@ -60,6 +60,7 @@ public class Inspection {
 
     @Column(name = "diagnosis_result")
     private String diagnosisResult;
+
 
     public void init() {
         this.status = InspectionStatus.IN_DIAGNOSIS;
