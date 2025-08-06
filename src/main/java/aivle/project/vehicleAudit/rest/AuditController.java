@@ -13,8 +13,6 @@ import aivle.project.vehicleAudit.rest.dto.ResponseDTO;
 import aivle.project.vehicleAudit.rest.mapper.AuditMapper;
 import aivle.project.vehicleAudit.rest.mapper.InspectionMapper;
 import aivle.project.vehicleAudit.service.AuditService;
-import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.Predicate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -79,8 +77,8 @@ public class AuditController {
     @PatchMapping("/inspections/{inspectionId}")
     public ResponseEntity<ResponseDTO<?>> startTaskOnInspection(
             @PathVariable Long inspectionId,
-            @RequestHeader Long workerId,
-            @RequestHeader String workerName,
+            @RequestHeader(name = "X-User-Id") Long workerId,
+            @RequestHeader(name = "X-User-Name") String workerName,
             @RequestBody InspectionDTO inspectionDTO
     ) {
         log.info("Received request to start task on inspection ID: {} by worker name: {} with inspection: {}",
