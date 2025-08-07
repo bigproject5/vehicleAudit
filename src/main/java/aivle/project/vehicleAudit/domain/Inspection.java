@@ -14,9 +14,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "inspection")
@@ -60,6 +62,18 @@ public class Inspection {
 
     @Column(name = "diagnosis_result")
     private String diagnosisResult;
+
+    @Transient
+    private MultipartFile collectDataFile;
+
+    public static Inspection createWithFile(InspectionType inspectionType, MultipartFile collectDataFile) {
+        Inspection inspection = new Inspection();
+        inspection.setInspectionType(inspectionType);
+        inspection.setCollectDataFile(collectDataFile);
+        inspection.init();
+        return inspection;
+
+    }
 
     public void init() {
         this.status = InspectionStatus.IN_DIAGNOSIS;
