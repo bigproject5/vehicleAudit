@@ -29,6 +29,7 @@ dependencies {
 	implementation("org.mapstruct:mapstruct:1.5.5.Final")
 	implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
 	implementation("com.querydsl:querydsl-apt:5.0.0:jakarta")
+	implementation("software.amazon.awssdk:s3:2.20.26")
 	compileOnly("org.projectlombok:lombok")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("com.h2database:h2")
