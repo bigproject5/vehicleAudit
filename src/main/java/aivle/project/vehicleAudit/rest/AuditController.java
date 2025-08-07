@@ -14,6 +14,8 @@ import aivle.project.vehicleAudit.rest.dto.ResponseDTO;
 import aivle.project.vehicleAudit.rest.mapper.AuditMapper;
 import aivle.project.vehicleAudit.rest.mapper.InspectionMapper;
 import aivle.project.vehicleAudit.service.AuditService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -57,20 +59,50 @@ public class AuditController {
 
     @PostMapping("/audits/manual")
     public ResponseEntity<ResponseDTO<AuditDTO>> createManualAudit(
-            @RequestHeader(name = "X-User-Role") String role,
-            @RequestPart(name = "audit") AuditManualDTO auditManualDTO,
+            HttpServletRequest request,
+            @RequestParam("audit") String auditJson,
             @RequestParam MultiValueMap<String, MultipartFile> files
     ) {
-        log.info("Received request to create manual audit with role: {} and audit: {}", role, auditManualDTO);
-        if (!role.equals("admin")) {
-            log.error("Unauthorized access attempt by role: {}", role);
-            return ResponseEntity.status(403)
-                    .body(ResponseDTO.error("UNAUTHORIZED", "Only admin can create manual audits"));
+        log.info("=== Request Debug Info ===");
+        log.info("Content-Type: {}", request.getContentType());
+        log.info("Content-Length: {}", request.getContentLength());
+        log.info("Method: {}", request.getMethod());
+
+        // 요청 헤더 정보
+        log.info("--- Request Headers ---");
+        request.getHeaderNames().asIterator().forEachRemaining(headerName -> {
+            log.info("{}: {}", headerName, request.getHeader(headerName));
+        });
+
+        log.info("--- Audit JSON ---");
+        log.info("Audit JSON: {}", auditJson);
+
+        log.info("--- Files Info ---");
+        log.info("Files keySet: {}", files.keySet());
+        files.forEach((key, valueList) -> {
+            valueList.forEach(file -> {
+                log.info("File - Key: '{}', Name: '{}', OriginalFilename: '{}', Size: {}, ContentType: '{}'",
+                        key, file.getName(), file.getOriginalFilename(), file.getSize(), file.getContentType());
+            });
+        });
+        log.info("=== End Request Debug ===");
+
+        // JSON 문자열을 AuditManualDTO로 파싱
+        AuditManualDTO auditManualDTO;
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            auditManualDTO = objectMapper.readValue(auditJson, AuditManualDTO.class);
+            log.info("Successfully parsed audit JSON: {}", auditManualDTO);
+        } catch (Exception e) {
+            log.error("Failed to parse audit JSON: {}", auditJson, e);
+            throw new IllegalArgumentException("Invalid audit JSON format: " + e.getMessage(), e);
         }
+
+        log.info("Received request to create manual audit with audit: {}", auditManualDTO);
         Audit audit = auditMapper.toEntity(auditManualDTO);
         List<Inspection> inspections = new ArrayList<>();
         files.forEach((key, value) -> {
-            if (value != null && !value.isEmpty()) {
+            if (value != null && !value.isEmpty() && !key.equals("audit")) {
                 log.info("Processing file for key: {}", key);
                 Inspection withFile = Inspection.createWithFile(InspectionType.valueOf(key), value.getFirst());
                 inspections.add(withFile);
