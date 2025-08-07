@@ -6,6 +6,7 @@ import aivle.project.vehicleAudit.domain.enumerate.InspectionStatus;
 import aivle.project.vehicleAudit.domain.enumerate.InspectionType;
 import aivle.project.vehicleAudit.rest.dto.AuditCreateDTO;
 import aivle.project.vehicleAudit.rest.dto.AuditDTO;
+import aivle.project.vehicleAudit.rest.dto.AuditManualDTO;
 import aivle.project.vehicleAudit.rest.dto.AuditSummaryDTO;
 import aivle.project.vehicleAudit.rest.dto.InspectionDTO;
 import aivle.project.vehicleAudit.rest.dto.InspectionSummaryDTO;
@@ -13,6 +14,7 @@ import aivle.project.vehicleAudit.rest.dto.ResponseDTO;
 import aivle.project.vehicleAudit.rest.mapper.AuditMapper;
 import aivle.project.vehicleAudit.rest.mapper.InspectionMapper;
 import aivle.project.vehicleAudit.service.AuditService;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +23,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +32,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @RestController
@@ -41,13 +46,38 @@ public class AuditController {
     private final AuditMapper auditMapper;
     private final InspectionMapper inspectionMapper;
 
-
     @PostMapping("/audits")
     public ResponseEntity<ResponseDTO<AuditDTO>> createAuditsWithPaths(@RequestBody AuditCreateDTO auditCreateDTO) {
         log.info("Received request to create audit with: {}", auditCreateDTO);
         Audit audit = auditMapper.toEntity(auditCreateDTO);
         List<Inspection> inspections = auditCreateDTO.inspections().stream().map(inspectionMapper::toEntity).toList();
         Audit savedAudit = auditService.create(audit, inspections);
+        return ResponseEntity.ok().body(ResponseDTO.success(auditMapper.toDto(savedAudit)));
+    }
+
+    @PostMapping("/audits/manual")
+    public ResponseEntity<ResponseDTO<AuditDTO>> createManualAudit(
+            @RequestHeader(name = "X-User-Role") String role,
+            @RequestPart(name = "audit") AuditManualDTO auditManualDTO,
+            @RequestParam MultiValueMap<String, MultipartFile> files
+    ) {
+        log.info("Received request to create manual audit with role: {} and audit: {}", role, auditManualDTO);
+        if (!role.equals("admin")) {
+            log.error("Unauthorized access attempt by role: {}", role);
+            return ResponseEntity.status(403)
+                    .body(ResponseDTO.error("UNAUTHORIZED", "Only admin can create manual audits"));
+        }
+        Audit audit = auditMapper.toEntity(auditManualDTO);
+        List<Inspection> inspections = new ArrayList<>();
+        files.forEach((key, value) -> {
+            if (value != null && !value.isEmpty()) {
+                log.info("Processing file for key: {}", key);
+                Inspection withFile = Inspection.createWithFile(InspectionType.valueOf(key), value.getFirst());
+                inspections.add(withFile);
+            }
+        });
+        Audit savedAudit = auditService.createWithFiles(audit, inspections);
+        log.info("Manual audit created successfully with ID: {}", savedAudit.getId());
         return ResponseEntity.ok().body(ResponseDTO.success(auditMapper.toDto(savedAudit)));
     }
 
@@ -72,7 +102,6 @@ public class AuditController {
         Inspection inspection = auditService.findByInspectionId(inspectionId);
         return ResponseEntity.ok().body(ResponseDTO.success(inspectionMapper.toDto(inspection)));
     }
-
 
     @PatchMapping("/inspections/{inspectionId}")
     public ResponseEntity<ResponseDTO<?>> startTaskOnInspection(
@@ -127,7 +156,8 @@ public class AuditController {
                 Sort.by(Sort.Direction.DESC, "id")
         );
 
-        Page<Inspection> inspections = auditService.searchInspections(inspectionType, workerId, status, sortedPageable);
+        Page<Inspection> inspections = auditService.searchInspections(inspectionType, workerId, status,
+                sortedPageable);
         return ResponseEntity.ok().body(ResponseDTO.success(inspections.map(inspectionMapper::toSummaryDto)));
     }
 }
