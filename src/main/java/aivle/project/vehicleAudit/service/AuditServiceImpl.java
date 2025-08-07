@@ -3,6 +3,7 @@ package aivle.project.vehicleAudit.service;
 import aivle.project.vehicleAudit.domain.*;
 import aivle.project.vehicleAudit.domain.enumerate.InspectionStatus;
 import aivle.project.vehicleAudit.domain.enumerate.InspectionType;
+import aivle.project.vehicleAudit.infra.FileStorage;
 import aivle.project.vehicleAudit.repository.AuditRepository;
 import aivle.project.vehicleAudit.repository.InspectionRepository;
 import aivle.project.vehicleAudit.repository.TaskRepository;
@@ -24,6 +25,7 @@ public class AuditServiceImpl implements AuditService {
     private final AuditRepository auditRepository;
     private final InspectionRepository inspectionRepository;
     private final TaskRepository taskRepository;
+    private final FileStorage fileStorage;
 
     @Override
     @Transactional
@@ -129,5 +131,31 @@ public class AuditServiceImpl implements AuditService {
         }
 
         return inspectionRepository.findAll(builder, pageable);
+    }
+
+    @Override
+    @Transactional
+    public Audit createWithFiles(Audit audit, List<Inspection> inspections) {
+        audit.init();
+        
+        // audit을 먼저 저장하여 ID 할당받기
+        audit = auditRepository.save(audit);
+
+        for (Inspection inspection : inspections) {
+            try {
+                inspection.init();
+                inspection.addToAudit(audit);
+                
+                // S3에 파일 업로드하고 경로를 collectDataPath에 저장
+                if (inspection.getCollectDataFile() != null && !inspection.getCollectDataFile().isEmpty()) {
+                    String filePath = fileStorage.storeCollectFile(inspection);
+                    inspection.setCollectDataPath(filePath);
+                }
+            } catch (Exception e) {
+                throw new RuntimeException("파일 업로드 중 오류가 발생했습니다: " + e.getMessage(), e);
+            }
+        }
+
+        return auditRepository.save(audit);
     }
 }

@@ -31,7 +31,7 @@ public class S3Storage implements FileStorage{
         String extension = originalFilename != null && originalFilename.contains(".")
             ? originalFilename.substring(originalFilename.lastIndexOf("."))
             : "";
-
+        
         // audit의 id를 폴더로, inspectionType을 파일명으로 사용
         String fileName = String.format("%d/%s_%s%s",
             inspection.getAudit().getId(),

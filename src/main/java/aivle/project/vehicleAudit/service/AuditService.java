@@ -20,4 +20,6 @@ public interface AuditService {
     Inspection updateTaskResolve(Long inspectionId, Long workerId, String resolve);
     Inspection diagnosisComplete(Long inspectionId); // 테스트용 진단 완료 처리
     Page<Inspection> searchInspections(InspectionType inspectionType, Long workerId, InspectionStatus status, Pageable pageable);
+
+    Audit createWithFiles(Audit audit, List<Inspection> inspections);
 }
