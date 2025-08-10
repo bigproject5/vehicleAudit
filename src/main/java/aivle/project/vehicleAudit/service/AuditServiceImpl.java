@@ -45,7 +45,7 @@ public class AuditServiceImpl implements AuditService {
                     savedAudit.getId(),
                     savedAudit.getModel(),
                     savedAudit.getLineCode(),
-                    inspection.getInspectionType().name(),
+                    inspection.getType().name(),
                     inspection.getCollectDataPath()
             );
             eventProducer.sendTestStartedEvent(event);
@@ -102,7 +102,7 @@ public class AuditServiceImpl implements AuditService {
                 inspection.getTask().getWorkerId(),
                 inspection.getTask().getStartedAt(),
                 inspection.getTask().getEndedAt(),
-                inspection.getType().toString()
+                inspection.getType().name()
         );
 
         eventProducer.sendWorkerTaskCompletedEvent(event);

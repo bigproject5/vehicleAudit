@@ -39,7 +39,7 @@ public class AiDiagnosisCompletedEventConsumer {
             if (event.isDefect() && (incoming == null || incoming.isBlank())) {
                 try {
                     aivle.project.vehicleAudit.rest.dto.RagSuggestRequest req = new RagSuggestRequest();
-                    req.setProcess(inspection.getInspectionType().name());
+                    req.setProcess(inspection.getType().name());
                     req.setDefect(true);
                     req.setConfidence(null);
                     req.setModelVersion(null);
