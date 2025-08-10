@@ -1,0 +1,21 @@
+{
+  "deleted": [
+    "/mnt/data/veh_audit_work2/vehicleAudit-feature-domain-gayeong/src/main/java/aivle/project/vehicleAudit/service/RagClient.java",
+    "/mnt/data/veh_audit_work2/vehicleAudit-feature-domain-gayeong/src/main/java/aivle/project/vehicleAudit/RagConfig.java"
+  ],
+  "added": [
+    "/mnt/data/veh_audit_work2/vehicleAudit-feature-domain-gayeong/src/main/java/aivle/project/vehicleAudit/rest/RagController.java",
+    "/mnt/data/veh_audit_work2/vehicleAudit-feature-domain-gayeong/src/main/java/aivle/project/vehicleAudit/service/RagService.java",
+    "/mnt/data/veh_audit_work2/vehicleAudit-feature-domain-gayeong/src/main/java/aivle/project/vehicleAudit/service/EmbeddingClient.java",
+    "/mnt/data/veh_audit_work2/vehicleAudit-feature-domain-gayeong/src/main/java/aivle/project/vehicleAudit/service/LlmClient.java",
+    "/mnt/data/veh_audit_work2/vehicleAudit-feature-domain-gayeong/src/main/java/aivle/project/vehicleAudit/service/DocxIngestService.java",
+    "/mnt/data/veh_audit_work2/vehicleAudit-feature-domain-gayeong/src/main/java/aivle/project/vehicleAudit/repository/GuideChunkRepository.java",
+    "/mnt/data/veh_audit_work2/vehicleAudit-feature-domain-gayeong/src/main/java/aivle/project/vehicleAudit/config/HttpClientsConfig.java",
+    "/mnt/data/veh_audit_work2/vehicleAudit-feature-domain-gayeong/rag_migration_pgvector.sql",
+    "/mnt/data/veh_audit_work2/vehicleAudit-feature-domain-gayeong/src/main/resources/rag-config-sample.properties"
+  ],
+  "modified": [
+    "/mnt/data/veh_audit_work2/vehicleAudit-feature-domain-gayeong/src/main/java/aivle/project/vehicleAudit/service/AiDiagnosisCompletedEventConsumer.java"
+  ],
+  "gradle_updated": true
+}

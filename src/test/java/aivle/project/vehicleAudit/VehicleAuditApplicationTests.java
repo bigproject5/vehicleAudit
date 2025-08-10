@@ -1,0 +1,13 @@
+package aivle.project.vehicleAudit;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class VehicleAuditApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
