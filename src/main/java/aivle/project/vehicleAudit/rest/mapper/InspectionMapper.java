@@ -11,7 +11,7 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface InspectionMapper {
 
-    @Mapping(target="inspectionType", source = "inspectionType")
+    @Mapping(target="type", source = "type")
     @Mapping(target="collectDataPath", source = "collectDataPath")
     Inspection toEntity(InspectionCreateDTO dto);
 
@@ -21,7 +21,7 @@ public interface InspectionMapper {
     @Mapping(target = "workerId", source = "task.workerId")
     @Mapping(target = "workerName", source = "task.workerName")
     @Mapping(target = "taskStartedAt", source = "task.startedAt")
-    @Mapping(target = "taskFinishedAt", source = "task.finishedAt")
+    @Mapping(target = "taskFinishedAt", source = "task.endedAt")
     @Mapping(target = "inspectionId", source = "id")
     InspectionSummaryDTO toSummaryDto(Inspection inspection);
 }
