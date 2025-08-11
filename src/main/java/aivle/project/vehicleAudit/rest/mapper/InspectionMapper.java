@@ -11,7 +11,7 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface InspectionMapper {
 
-    @Mapping(target="type", source = "type")
+    @Mapping(target="inspectionType", source = "inspectionType")
     @Mapping(target="collectDataPath", source = "collectDataPath")
     Inspection toEntity(InspectionCreateDTO dto);
 

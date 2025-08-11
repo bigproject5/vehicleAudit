@@ -12,7 +12,7 @@ public record AuditCreateDTO(
     @Getter
     @Setter
     public static class InspectionCreateDTO {
-        String Type;
+        String inspectionType;
         String collectDataPath;
     }
 }
