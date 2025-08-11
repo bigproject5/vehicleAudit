@@ -24,6 +24,9 @@ repositories {
 }
 
 dependencies {
+	implementation("org.springframework.boot:spring-boot-starter-webflux")
+	implementation("org.springframework.kafka:spring-kafka")
+
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.mapstruct:mapstruct:1.5.5.Final")

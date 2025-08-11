@@ -2,6 +2,7 @@ package aivle.project.vehicleAudit.domain;
 
 import aivle.project.vehicleAudit.domain.enumerate.InspectionStatus;
 import aivle.project.vehicleAudit.domain.enumerate.InspectionType;
+import aivle.project.vehicleAudit.domain.enumerate.SuggestionLevel;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,6 +16,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.persistence.Lob;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -55,6 +57,14 @@ public class Inspection {
 
     @Column(name = "solution", length = 300)
     private String aiSuggestion;
+
+    @Enumerated(EnumType.STRING)
+    private SuggestionLevel aiSuggestionLevel;
+
+    private Double aiSuggestionConfidence;
+
+    @Lob
+    private String aiSuggestionSources;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "task_id")
