@@ -28,7 +28,6 @@ public class AuditServiceImpl implements AuditService {
 
     private final AuditRepository auditRepository;
     private final InspectionRepository inspectionRepository;
-    private final TaskRepository taskRepository;
     private final FileStorage fileStorage;
     private final VehicleAuditEventProducer eventProducer;
 
@@ -46,7 +45,8 @@ public class AuditServiceImpl implements AuditService {
                     savedAudit.getId(),
                     savedAudit.getModel(),
                     savedAudit.getLineCode(),
-                    inspection.getType().name(),
+                    inspection.getId(),
+                    inspection.getInspectionType().name(),
                     inspection.getCollectDataPath()
             );
             eventProducer.sendTestStartedEvent(event);
@@ -101,7 +101,7 @@ public class AuditServiceImpl implements AuditService {
                 inspection.getTask().getWorkerId(),
                 inspection.getTask().getStartedAt(),
                 inspection.getTask().getEndedAt(),
-                inspection.getType().name()
+                inspection.getInspectionType().name()
         );
 
         eventProducer.sendWorkerTaskCompletedEvent(event);
@@ -146,7 +146,7 @@ public class AuditServiceImpl implements AuditService {
 
         // inspectionType 필터링
         if (inspectionType != null) {
-            builder.and(inspection.type.eq(inspectionType));
+            builder.and(inspection.inspectionType.eq(inspectionType));
         }
 
         // status 필터링
