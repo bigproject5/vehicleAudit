@@ -35,23 +35,22 @@ public class AiDiagnosisCompletedEventConsumer {
         // AI 결과 반영
         inspection.setDefect(event.isDefect());
         {
-            String incoming = event.getAiSuggestion();
-            if (event.isDefect() && (incoming == null || incoming.isBlank())) {
+            if (event.isDefect()) {
                 try {
                     aivle.project.vehicleAudit.rest.dto.RagSuggestRequest req = new RagSuggestRequest();
-                    req.setProcess(inspection.getType().name());
+                    req.setProcess(inspection.getInspectionType().name());
                     req.setDefect(true);
                     req.setConfidence(null);
                     req.setModelVersion(null);
                     req.setInspectionId(inspection.getId());
                     req.setVehicleModel(null);
                     RagSuggestResponse rag = ragService.suggest(req);
-                    incoming = objectMapper.writeValueAsString(rag);
+                    inspection.setAiSuggestion(objectMapper.writeValueAsString(rag));
                 } catch (Exception ex) {
-                    incoming = "{\"level\":\"TRIAGE\",\"title\":\"기본 점검 안내\",\"actions\":[\"문서 조회 중입니다. 잠시 후 다시 시도해주세요.\"],\"overall_confidence\":0.0,\"need_human_review\":true}";
+                    log.error("RAG suggestion failed for inspection ID {}: {}", inspection.getId(), ex.getMessage());
+                    inspection.setAiSuggestion(null);
                 }
             }
-            inspection.setAiSuggestion(incoming);
         }
         inspection.setResultDataPath(event.getResultDataPath());
         inspection.setDiagnosisResult(event.getDiagnosisResult());
