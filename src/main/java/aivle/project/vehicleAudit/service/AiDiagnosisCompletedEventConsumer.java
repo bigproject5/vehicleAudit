@@ -9,17 +9,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import aivle.project.vehicleAudit.service.RagClient;
 import aivle.project.vehicleAudit.rest.dto.RagSuggestRequest;
 import aivle.project.vehicleAudit.rest.dto.RagSuggestResponse;
 import org.springframework.transaction.annotation.Transactional;
 import aivle.project.vehicleAudit.domain.enumerate.SuggestionLevel;
+import aivle.project.vehicleAudit.service.RagService;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class AiDiagnosisCompletedEventConsumer {
-    private final RagClient ragClient;
+    private final RagService ragService;
     private final ObjectMapper objectMapper;
 
     private final InspectionRepository inspectionRepository;
@@ -45,18 +45,13 @@ public class AiDiagnosisCompletedEventConsumer {
                     req.setModelVersion(null);
                     req.setInspectionId(inspection.getId());
                     req.setVehicleModel(null);
-                    RagSuggestResponse rag = ragClient.suggest(req);
+                    RagSuggestResponse rag = ragService.suggest(req);
                     incoming = objectMapper.writeValueAsString(rag);
                 } catch (Exception ex) {
                     incoming = "{\"level\":\"TRIAGE\",\"title\":\"기본 점검 안내\",\"actions\":[\"문서 조회 중입니다. 잠시 후 다시 시도해주세요.\"],\"overall_confidence\":0.0,\"need_human_review\":true}";
                 }
             }
             inspection.setAiSuggestion(incoming);
-        if (rag != null) {
-            inspection.setAiSuggestionLevel("SPECIFIC".equalsIgnoreCase(rag.getLevel()) ? SuggestionLevel.SPECIFIC : SuggestionLevel.TRIAGE);
-            inspection.setAiSuggestionConfidence(rag.getOverallConfidence());
-            try { inspection.setAiSuggestionSources(objectMapper.writeValueAsString(rag.getSources())); } catch (Exception ignore) {}
-        }
         }
         inspection.setResultDataPath(event.getResultDataPath());
         inspection.setDiagnosisResult(event.getDiagnosisResult());

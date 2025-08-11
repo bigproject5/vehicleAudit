@@ -146,7 +146,7 @@ public class AuditServiceImpl implements AuditService {
 
         // inspectionType 필터링
         if (inspectionType != null) {
-            builder.and(inspection.inspectionType.eq(inspectionType));
+            builder.and(inspection.type.eq(inspectionType));
         }
 
         // status 필터링

@@ -43,6 +43,11 @@ dependencies {
 	annotationProcessor("jakarta.persistence:jakarta.persistence-api")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+	implementation("org.springframework.boot:spring-boot-starter-webflux") // WebClient
+	implementation("org.apache.poi:poi-ooxml:5.2.5")                      // docx 파서
+	implementation("org.postgresql:postgresql")                           // JDBC (pgvector DB)
+	implementation("com.fasterxml.jackson.core:jackson-databind")         // JSON
 }
 
 tasks.withType<Test> {
