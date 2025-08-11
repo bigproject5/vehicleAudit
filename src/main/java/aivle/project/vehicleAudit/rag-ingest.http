@@ -1,0 +1,100 @@
+### 선택 환경
+@env=local
+
+### 0) 헬스 체크
+GET {{host}}/internal/rag/health
+
+### 1) 와이퍼 인제스트
+POST {{host}}/internal/rag/admin/ingest
+Content-Type: multipart/form-data; boundary=BOUND
+
+--BOUND
+Content-Disposition: form-data; name="process"
+
+WIPER
+--BOUND
+Content-Disposition: form-data; name="version"
+
+v1.0
+--BOUND
+Content-Disposition: form-data; name="file"; filename="[와이퍼 공정 AI 조치 제안 가이드라인].docx"
+Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+
+< {{wiper_file}}
+--BOUND--
+
+### 2) 워셔액
+POST {{host}}/internal/rag/admin/ingest
+Content-Type: multipart/form-data; boundary=BOUND
+
+--BOUND
+Content-Disposition: form-data; name="process"
+
+WASHER
+--BOUND
+Content-Disposition: form-data; name="version"
+
+v1.0
+--BOUND
+Content-Disposition: form-data; name="file"; filename="[워셔액 공정 AI 조치 제안 가이드라인].docx"
+Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+
+< {{washer_file}}
+--BOUND--
+
+### 3) 라이트(전/후미등)
+POST {{host}}/internal/rag/admin/ingest
+Content-Type: multipart/form-data; boundary=BOUND
+
+--BOUND
+Content-Disposition: form-data; name="process"
+
+LAMP
+--BOUND
+Content-Disposition: form-data; name="version"
+
+v1.0
+--BOUND
+Content-Disposition: form-data; name="file"; filename="[라이트(전조등·후미등) 공정 AI 조치 제안 가이드라인].docx"
+Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+
+< {{lamp_file}}
+--BOUND--
+
+### 4) 도장
+POST {{host}}/internal/rag/admin/ingest
+Content-Type: multipart/form-data; boundary=BOUND
+
+--BOUND
+Content-Disposition: form-data; name="process"
+
+PAINT
+--BOUND
+Content-Disposition: form-data; name="version"
+
+v1.0
+--BOUND
+Content-Disposition: form-data; name="file"; filename="[도장 공정 AI 조치 제안 가이드라인].docx"
+Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+
+< {{paint_file}}
+--BOUND--
+
+### 5) 엔진 소리
+POST {{host}}/internal/rag/admin/ingest
+Content-Type: multipart/form-data; boundary=BOUND
+
+--BOUND
+Content-Disposition: form-data; name="process"
+
+ENGINE
+--BOUND
+Content-Disposition: form-data; name="version"
+
+v1.0
+--BOUND
+Content-Disposition: form-data; name="file"; filename="[엔진 소리 공정 AI 조치 제안 가이드라인].docx"
+Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+
+< {{engine_file}}
+--BOUND--

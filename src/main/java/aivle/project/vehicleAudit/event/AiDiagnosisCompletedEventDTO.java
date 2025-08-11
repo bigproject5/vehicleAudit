@@ -8,9 +8,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AiDiagnosisCompletedEventDTO {
-    private Long inspectionId;
-    private boolean isDefect;
-    private String aiSuggestion;
-    private String resultDataPath;
-    private String diagnosisResult;
+
 }
