@@ -11,6 +11,7 @@ public class TestStartedEventDTO {
     private Long auditId;
     private String model;
     private String lineCode;
+    private Long inspectionId;
     private String inspectionType;
     private String collectDataPath;
 }
