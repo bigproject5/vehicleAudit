@@ -168,7 +168,7 @@ public class AuditServiceImpl implements AuditService {
         audit.init();
 
         // audit을 먼저 저장하여 ID 할당받기
-        audit = auditRepository.save(audit);
+        auditRepository.save(audit);
 
         for (Inspection inspection : inspections) {
             try {
@@ -184,6 +184,20 @@ public class AuditServiceImpl implements AuditService {
                 throw new RuntimeException("파일 업로드 중 오류가 발생했습니다: " + e.getMessage(), e);
             }
         }
+
+        auditRepository.flush();
+
+        audit.getInspections().forEach(inspection -> {
+            TestStartedEventDTO event = new TestStartedEventDTO(
+                    audit.getId(),
+                    audit.getModel(),
+                    audit.getLineCode(),
+                    inspection.getId(),
+                    inspection.getInspectionType().name(),
+                    inspection.getCollectDataPath()
+            );
+            eventProducer.sendTestStartedEvent(event);
+        });
 
         return auditRepository.save(audit);
     }
