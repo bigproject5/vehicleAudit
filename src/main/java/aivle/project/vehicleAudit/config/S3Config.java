@@ -11,9 +11,6 @@ import software.amazon.awssdk.services.s3.S3Configuration;
 
 import java.net.URI;
 
-@Value("${aws.s3.endpoint:}")
-private String endpoint;
-
 
 @Configuration
 public class S3Config {
@@ -34,12 +31,7 @@ public class S3Config {
                 .region(Region.of(region))
                 .credentialsProvider(StaticCredentialsProvider.create(
                         AwsBasicCredentials.create(accessKey, secretKey)));
-        if (endpoint != null && !endpoint.isBlank()) {
-            builder = builder
-                    .endpointOverride(URI.create(endpoint))
-                    .serviceConfiguration(S3Configuration.builder()
-                            .pathStyleAccessEnabled(true).build());
-        }
+
         return builder.build();
     }
 }
