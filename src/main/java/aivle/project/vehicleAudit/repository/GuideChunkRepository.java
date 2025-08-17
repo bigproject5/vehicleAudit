@@ -24,20 +24,16 @@ public class GuideChunkRepository {
     }
 
     public List<Row> searchByProcess(String process, double[] vec, int topk) {
-        String v = toVectorLiteral(vec);
+        // H2용 간단한 텍스트 검색으로 대체
         String sql = """
-SELECT doc_name, section, version, content,
-       1 - (embedding <=> (?::vector)) AS score
+SELECT doc_name, section, version, content, 1.0 AS score
 FROM guide_chunks
 WHERE process_code = ?
-ORDER BY embedding <=> (?::vector)
 LIMIT ?
 """;
         return jdbc.query(sql, ps -> {
-            ps.setString(1, v);
-            ps.setString(2, process);
-            ps.setString(3, v);
-            ps.setInt(4, topk);
+            ps.setString(1, process);
+            ps.setInt(2, topk);
         }, (rs, i) -> new Row(
                 rs.getString(1),
                 rs.getString(2),
@@ -49,7 +45,8 @@ LIMIT ?
 
     public void insertChunk(String process, String doc, String section, String version, String content, double[] vec) {
         String v = toVectorLiteral(vec);
-        String sql = "INSERT INTO guide_chunks(process_code, doc_name, section, version, content, keywords, embedding) VALUES (?,?,?,?,?,NULL, ?::vector)";
+        // H2용: vector 캐스팅 제거, 단순 TEXT로 저장
+        String sql = "INSERT INTO guide_chunks(process_code, doc_name, section, version, content, keywords, embedding) VALUES (?,?,?,?,?,NULL, ?)";
         jdbc.update(sql, process, doc, section, version, content, v);
     }
 

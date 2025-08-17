@@ -1,0 +1,30 @@
+2025-08-17 21:30:29.725838+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
+update inspection set solution=?,ai_suggestion_confidence=?,ai_suggestion_level=?,ai_suggestion_sources=?,audit_id=?,collect_data_path=?,diagnosis_result=?,type=?,is_defect=?,result_data_path=?,status=?,task_id=? where inspection_id=? [22001-232]
+2025-08-17 21:30:35.008613+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
+update inspection set solution=?,ai_suggestion_confidence=?,ai_suggestion_level=?,ai_suggestion_sources=?,audit_id=?,collect_data_path=?,diagnosis_result=?,type=?,is_defect=?,result_data_path=?,status=?,task_id=? where inspection_id=? [22001-232]
+2025-08-17 21:30:39.623776+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
+update inspection set solution=?,ai_suggestion_confidence=?,ai_suggestion_level=?,ai_suggestion_sources=?,audit_id=?,collect_data_path=?,diagnosis_result=?,type=?,is_defect=?,result_data_path=?,status=?,task_id=? where inspection_id=? [22001-232]
+2025-08-17 21:30:45.689569+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
+update inspection set solution=?,ai_suggestion_confidence=?,ai_suggestion_level=?,ai_suggestion_sources=?,audit_id=?,collect_data_path=?,diagnosis_result=?,type=?,is_defect=?,result_data_path=?,status=?,task_id=? where inspection_id=? [22001-232]
+2025-08-17 21:30:49.621751+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
+update inspection set solution=?,ai_suggestion_confidence=?,ai_suggestion_level=?,ai_suggestion_sources=?,audit_id=?,collect_data_path=?,diagnosis_result=?,type=?,is_defect=?,result_data_path=?,status=?,task_id=? where inspection_id=? [22001-232]
+2025-08-17 21:30:53.665725+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
+update inspection set solution=?,ai_suggestion_confidence=?,ai_suggestion_level=?,ai_suggestion_sources=?,audit_id=?,collect_data_path=?,diagnosis_result=?,type=?,is_defect=?,result_data_path=?,status=?,task_id=? where inspection_id=? [22001-232]
+2025-08-17 21:30:57.969856+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
+update inspection set solution=?,ai_suggestion_confidence=?,ai_suggestion_level=?,ai_suggestion_sources=?,audit_id=?,collect_data_path=?,diagnosis_result=?,type=?,is_defect=?,result_data_path=?,status=?,task_id=? where inspection_id=? [22001-232]
+2025-08-17 21:31:01.359253+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
+update inspection set solution=?,ai_suggestion_confidence=?,ai_suggestion_level=?,ai_suggestion_sources=?,audit_id=?,collect_data_path=?,diagnosis_result=?,type=?,is_defect=?,result_data_path=?,status=?,task_id=? where inspection_id=? [22001-232]
+2025-08-17 21:31:04.928686+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
+update inspection set solution=?,ai_suggestion_confidence=?,ai_suggestion_level=?,ai_suggestion_sources=?,audit_id=?,collect_data_path=?,diagnosis_result=?,type=?,is_defect=?,result_data_path=?,status=?,task_id=? where inspection_id=? [22001-232]
+2025-08-17 21:31:08.340670+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
+update inspection set solution=?,ai_suggestion_confidence=?,ai_suggestion_level=?,ai_suggestion_sources=?,audit_id=?,collect_data_path=?,diagnosis_result=?,type=?,is_defect=?,result_data_path=?,status=?,task_id=? where inspection_id=? [22001-232]
