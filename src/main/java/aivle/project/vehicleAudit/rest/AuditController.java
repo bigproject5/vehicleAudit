@@ -16,6 +16,9 @@ import aivle.project.vehicleAudit.rest.mapper.InspectionMapper;
 import aivle.project.vehicleAudit.service.AuditService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
+
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -138,9 +141,10 @@ public class AuditController {
     public ResponseEntity<ResponseDTO<?>> updateInspection(
             @PathVariable Long inspectionId,
             @RequestHeader(name = "X-User-Id") Long workerId,
-            @RequestHeader(name = "X-User-Name") String workerName,
+            @RequestHeader(name = "X-User-Name") String encodedName,
             @RequestBody InspectionDTO inspectionDTO
     ) {
+        String workerName = URLDecoder.decode(encodedName, StandardCharsets.UTF_8);
         log.info("Received request to start task on inspection ID: {} by worker name: {} with inspection: {}",
                 inspectionId, workerName, inspectionDTO);
         if (inspectionDTO.status() != null) {
