@@ -28,3 +28,132 @@ update inspection set solution=?,ai_suggestion_confidence=?,ai_suggestion_level=
 2025-08-17 21:31:08.340670+09:00 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
 update inspection set solution=?,ai_suggestion_confidence=?,ai_suggestion_level=?,ai_suggestion_sources=?,audit_id=?,collect_data_path=?,diagnosis_result=?,type=?,is_defect=?,result_data_path=?,status=?,task_id=? where inspection_id=? [22001-232]
+2025-08-18 09:39:45.380142+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
+INSERT INTO "PUBLIC"."INSPECTION_COPY_3_0"("INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID") OVERRIDING SYSTEM VALUE SELECT "INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID" FROM "PUBLIC"."INSPECTION" [22001-232]
+2025-08-18 09:41:56.078206+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
+INSERT INTO "PUBLIC"."INSPECTION_COPY_3_0"("INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID") OVERRIDING SYSTEM VALUE SELECT "INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID" FROM "PUBLIC"."INSPECTION" [22001-232]
+2025-08-18 10:01:24.415489+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
+INSERT INTO "PUBLIC"."INSPECTION_COPY_3_0"("INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID") OVERRIDING SYSTEM VALUE SELECT "INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID" FROM "PUBLIC"."INSPECTION" [22001-232]
+2025-08-18 10:13:59.358439+09:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]GUIDE_CHUNKS"; expected "GRANT"; SQL statement:
+GUIDE_CHUNKS [42001-232]
+2025-08-18 10:16:10.151695+09:00 jdbc[15]: null
+org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-232]
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.message.DbException.get(DbException.java:188)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:217)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:134)
+	at org.h2.util.JdbcUtils.getConnection(JdbcUtils.java:291)
+	at org.h2.server.web.WebServer.getConnection(WebServer.java:811)
+	at org.h2.server.web.WebApp.login(WebApp.java:1038)
+	at org.h2.server.web.WebApp.process(WebApp.java:226)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:176)
+	at org.h2.server.web.JakartaWebServlet.doGet(JakartaWebServlet.java:129)
+	at org.h2.server.web.JakartaWebServlet.doPost(JakartaWebServlet.java:166)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:116)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:398)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1769)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1189)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:658)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: The connection was not closed by the application and is garbage collected [90018-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 47 more
+2025-08-18 10:20:48.860439+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
+INSERT INTO "PUBLIC"."INSPECTION_COPY_3_0"("INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID") OVERRIDING SYSTEM VALUE SELECT "INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID" FROM "PUBLIC"."INSPECTION" [22001-232]
+2025-08-18 10:34:31.293603+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
+INSERT INTO "PUBLIC"."INSPECTION_COPY_3_0"("INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID") OVERRIDING SYSTEM VALUE SELECT "INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID" FROM "PUBLIC"."INSPECTION" [22001-232]
+2025-08-18 10:47:39.092149+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
+INSERT INTO "PUBLIC"."INSPECTION_COPY_3_0"("INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID") OVERRIDING SYSTEM VALUE SELECT "INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID" FROM "PUBLIC"."INSPECTION" [22001-232]
+2025-08-18 10:58:05.694310+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
+INSERT INTO "PUBLIC"."INSPECTION_COPY_3_0"("INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID") OVERRIDING SYSTEM VALUE SELECT "INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID" FROM "PUBLIC"."INSPECTION" [22001-232]
+2025-08-18 11:02:45.267452+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
+INSERT INTO "PUBLIC"."INSPECTION_COPY_3_0"("INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID") OVERRIDING SYSTEM VALUE SELECT "INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID" FROM "PUBLIC"."INSPECTION" [22001-232]
+2025-08-18 11:12:32.154192+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
+INSERT INTO "PUBLIC"."INSPECTION_COPY_3_0"("INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID") OVERRIDING SYSTEM VALUE SELECT "INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID" FROM "PUBLIC"."INSPECTION" [22001-232]
+2025-08-18 14:01:09.886611+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
+INSERT INTO "PUBLIC"."INSPECTION_COPY_3_0"("INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID") OVERRIDING SYSTEM VALUE SELECT "INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID" FROM "PUBLIC"."INSPECTION" [22001-232]
+2025-08-18 14:09:22.177772+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
+INSERT INTO "PUBLIC"."INSPECTION_COPY_3_0"("INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID") OVERRIDING SYSTEM VALUE SELECT "INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID" FROM "PUBLIC"."INSPECTION" [22001-232]
+2025-08-18 14:35:25.777050+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
+INSERT INTO "PUBLIC"."INSPECTION_COPY_3_0"("INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID") OVERRIDING SYSTEM VALUE SELECT "INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID" FROM "PUBLIC"."INSPECTION" [22001-232]
+2025-08-18 14:58:28.152987+09:00 jdbc[15]: null
+org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-232]
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.message.DbException.get(DbException.java:188)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:217)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:134)
+	at org.h2.Driver.connect(Driver.java:59)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:139)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:368)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:205)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:483)
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:747)
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:726)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: The connection was not closed by the application and is garbage collected [90018-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 16 more
+2025-08-18 15:03:53.792826+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
+INSERT INTO "PUBLIC"."INSPECTION_COPY_3_0"("INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID") OVERRIDING SYSTEM VALUE SELECT "INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID" FROM "PUBLIC"."INSPECTION" [22001-232]
+2025-08-18 15:07:27.170834+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
+INSERT INTO "PUBLIC"."INSPECTION_COPY_3_0"("INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID") OVERRIDING SYSTEM VALUE SELECT "INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID" FROM "PUBLIC"."INSPECTION" [22001-232]
+2025-08-18 15:11:29.227418+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
+INSERT INTO "PUBLIC"."INSPECTION_COPY_3_0"("INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID") OVERRIDING SYSTEM VALUE SELECT "INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID" FROM "PUBLIC"."INSPECTION" [22001-232]
+2025-08-18 15:15:55.768566+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
+INSERT INTO "PUBLIC"."INSPECTION_COPY_3_0"("INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID") OVERRIDING SYSTEM VALUE SELECT "INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID" FROM "PUBLIC"."INSPECTION" [22001-232]
+2025-08-18 15:18:31.832220+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SOLUTION CHARACTER VARYING(300)": "U&'{""level"":""TRIAGE"",""title"":""WASHER_FLUID \\acf5\\c815 1\\cc28 \\c810\\ac80(\\d2b8\\b9... (609)"; SQL statement:
+INSERT INTO "PUBLIC"."INSPECTION_COPY_3_0"("INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID") OVERRIDING SYSTEM VALUE SELECT "INSPECTION_ID", "SOLUTION", "AI_SUGGESTION_CONFIDENCE", "AI_SUGGESTION_LEVEL", "AI_SUGGESTION_SOURCES", "COLLECT_DATA_PATH", "DIAGNOSIS_RESULT", "TYPE", "IS_DEFECT", "RESULT_DATA_PATH", "STATUS", "AUDIT_ID", "TASK_ID" FROM "PUBLIC"."INSPECTION" [22001-232]
