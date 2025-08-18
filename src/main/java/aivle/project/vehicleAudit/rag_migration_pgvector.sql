@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS guide_chunks (
   version text,
   content text NOT NULL,
   keywords text[],
-  embedding vector(3072)  -- ★ embed 모델과 차원 일치!
+  embedding vector(1536)  -- ★ embed 모델과 차원 일치!
 );
 
 CREATE INDEX IF NOT EXISTS idx_chunks_vec ON guide_chunks USING ivfflat (embedding vector_cosine_ops) WITH (lists=100);

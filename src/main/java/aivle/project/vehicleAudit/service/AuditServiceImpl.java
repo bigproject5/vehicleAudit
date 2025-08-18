@@ -164,6 +164,7 @@ public class AuditServiceImpl implements AuditService {
 
     @Override
     @Transactional
+
     public Audit createWithFiles(Audit audit, List<Inspection> inspections) {
         audit.init();
 

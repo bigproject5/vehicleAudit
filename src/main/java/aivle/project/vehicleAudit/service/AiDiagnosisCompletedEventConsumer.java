@@ -45,7 +45,7 @@ public class AiDiagnosisCompletedEventConsumer {
                     req.setInspectionId(inspection.getId());
                     req.setVehicleModel(null);
                     RagSuggestResponse rag = ragService.suggest(req);
-                    inspection.setAiSuggestion(objectMapper.writeValueAsString(rag));
+                    inspection.setAiSuggestion(rag.getActions().getFirst());
                 } catch (Exception ex) {
                     log.error("RAG suggestion failed for inspection ID {}: {}", inspection.getId(), ex.getMessage());
                     inspection.setAiSuggestion(null);
