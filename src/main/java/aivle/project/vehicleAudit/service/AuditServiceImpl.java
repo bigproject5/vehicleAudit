@@ -101,7 +101,10 @@ public class AuditServiceImpl implements AuditService {
                 inspection.getTask().getWorkerId(),
                 inspection.getTask().getStartedAt(),
                 inspection.getTask().getEndedAt(),
-                inspection.getInspectionType().name()
+                inspection.getInspectionType().name(),
+                inspection.getAiSuggestion(),      // 추가
+                inspection.getDiagnosisResult(),   // 추가
+                inspection.getResultDataPath()     // 추가
         );
 
         eventProducer.sendWorkerTaskCompletedEvent(event);
