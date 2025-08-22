@@ -48,6 +48,7 @@ dependencies {
 	implementation("org.apache.poi:poi-ooxml:5.2.5")                      // docx 파서
 	implementation("org.postgresql:postgresql")                           // JDBC (pgvector DB)
 	implementation("com.fasterxml.jackson.core:jackson-databind")         // JSON
+	runtimeOnly("com.mysql:mysql-connector-j")
 }
 
 tasks.withType<Test> {

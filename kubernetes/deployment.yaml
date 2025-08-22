@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vehicleaudit-deployment
+  labels:
+    app: vehicleaudit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vehicleaudit
+  template:
+    metadata:
+      labels:
+        app: vehicleaudit
+    spec:
+      containers:
+      - name: vehicleaudit
+        image: # Replace with your actual image
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DB_URL
+          valueFrom:
+            secretKeyRef:
+              name: operation-secrets
+              key: db.url
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: operation-secrets
+              key: db.username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: operation-secrets
+              key: db.password
+        - name: S3_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: operation-secrets
+              key: s3.accessKey
+        - name: S3_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: operation-secrets
+              key: s3.secretKey
+        - name: S3_BUCKET
+          valueFrom:
+            secretKeyRef:
+              name: operation-secrets
+              key: s3.bucket
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: operation-secrets
+              key: openai.apiKey
+        # Kafka and RAG base URLs will be configured in application.properties/yaml
+        # and should point to Kubernetes services, not localhost.
