@@ -24,7 +24,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: operation-secrets
-              key: db.url
+              key: db.url.va
         - name: DB_USERNAME
           valueFrom:
             secretKeyRef:
@@ -55,5 +55,9 @@ spec:
             secretKeyRef:
               name: operation-secrets
               key: openai.apiKey
-        # Kafka and RAG base URLs will be configured in application.properties/yaml
-        # and should point to Kubernetes services, not localhost.
+        - name: KAFKA_BOOTSTRAP_SERVERS
+          valueFrom:
+            secretKeyRef:
+              name: operation-secrets
+              key: kafka.bootstrap.server
+
