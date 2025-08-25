@@ -55,7 +55,8 @@ public class Inspection {
     @Column(name = "result_data_path")
     private String resultDataPath;
 
-    @Column(name = "solution", length = 300)
+    @Lob
+    @Column(name = "solution")
     private String aiSuggestion;
 
     @Enumerated(EnumType.STRING)
