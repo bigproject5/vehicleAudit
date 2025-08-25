@@ -137,4 +137,8 @@ public class Inspection {
         }
         task.modifyResolve(workerId, resolve);
     }
+
+    public boolean isCompleted() {
+        return this.status == InspectionStatus.COMPLETED || this.status == InspectionStatus.NORMAL;
+    }
 }

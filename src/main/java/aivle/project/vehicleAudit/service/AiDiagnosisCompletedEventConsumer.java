@@ -1,7 +1,9 @@
 package aivle.project.vehicleAudit.service;
 
+import aivle.project.vehicleAudit.domain.Audit;
+import aivle.project.vehicleAudit.domain.enumerate.AuditStatus;
 import aivle.project.vehicleAudit.event.AiDiagnosisCompletedEventDTO;
-import aivle.project.vehicleAudit.repository.InspectionRepository;
+import aivle.project.vehicleAudit.repository.AuditRepository;
 import aivle.project.vehicleAudit.domain.Inspection;
 import aivle.project.vehicleAudit.domain.enumerate.InspectionStatus;
 import lombok.RequiredArgsConstructor;
@@ -12,8 +14,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import aivle.project.vehicleAudit.rest.dto.RagSuggestRequest;
 import aivle.project.vehicleAudit.rest.dto.RagSuggestResponse;
 import org.springframework.transaction.annotation.Transactional;
-import aivle.project.vehicleAudit.domain.enumerate.SuggestionLevel;
-import aivle.project.vehicleAudit.service.RagService;
 
 @Component
 @RequiredArgsConstructor
@@ -22,42 +22,50 @@ public class AiDiagnosisCompletedEventConsumer {
     private final RagService ragService;
     private final ObjectMapper objectMapper;
 
-    private final InspectionRepository inspectionRepository;
+    private final AuditRepository auditRepository;
 
     @KafkaListener(topics = "ai-diagnosis-completed", groupId = "vehicle-audit-group")
     @Transactional
     public void consume(AiDiagnosisCompletedEventDTO event) {
         log.info("Received AI diagnosis completed event: {}", event);
-
-        Inspection inspection = inspectionRepository.findById(event.getInspectionId())
-                .orElseThrow(() -> new RuntimeException("검사 ID 없음: " + event.getInspectionId()));
+        Audit audit = auditRepository.findWithInspectionsById(event.getAuditId())
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 테스트 ID: " + event.getAuditId()));
+        Inspection targetInspection = audit.getInspections().stream()
+                .filter(inspection -> inspection.getId().equals(event.getInspectionId()))
+                .findFirst()
+                .orElseThrow(
+                        () -> new RuntimeException("존재하지 않는 점검 ID: " + event.getInspectionId())
+                );
 
         // AI 결과 반영
-        inspection.setDefect(event.isDefect());
+        targetInspection.setDefect(event.isDefect());
         {
             if (event.isDefect()) {
                 try {
                     aivle.project.vehicleAudit.rest.dto.RagSuggestRequest req = new RagSuggestRequest();
-                    req.setProcess(inspection.getInspectionType().name());
+                    req.setProcess(targetInspection.getInspectionType().name());
                     req.setDefect(true);
                     req.setConfidence(null);
                     req.setModelVersion(null);
-                    req.setInspectionId(inspection.getId());
+                    req.setInspectionId(targetInspection.getId());
                     req.setVehicleModel(null);
                     RagSuggestResponse rag = ragService.suggest(req);
-                    inspection.setAiSuggestion(rag.getActions().getFirst());
+                    targetInspection.setAiSuggestion(rag.getActions().getFirst());
                 } catch (Exception ex) {
-                    log.error("RAG suggestion failed for inspection ID {}: {}", inspection.getId(), ex.getMessage());
-                    inspection.setAiSuggestion(null);
+                    log.error("RAG suggestion failed for inspection ID {}: {}", targetInspection.getId(), ex.getMessage());
+                    targetInspection.setAiSuggestion(null);
+                }
+            } else {
+                if (audit.allInspectionsCompleted()) {
+                    audit.setStatus(AuditStatus.COMPLETED);
                 }
             }
         }
-        inspection.setResultDataPath(event.getResultDataPath());
-        inspection.setDiagnosisResult(event.getDiagnosisResult());
-        inspection.setStatus(
+        targetInspection.setResultDataPath(event.getResultDataPath());
+        targetInspection.setDiagnosisResult(event.getDiagnosisResult());
+        targetInspection.setStatus(
                 event.isDefect() ? InspectionStatus.ABNORMAL : InspectionStatus.NORMAL
         );
-        inspectionRepository.save(inspection);
-
+        auditRepository.save(audit);
     }
 }
