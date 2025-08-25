@@ -55,10 +55,6 @@ public class AiDiagnosisCompletedEventConsumer {
                     log.error("RAG suggestion failed for inspection ID {}: {}", targetInspection.getId(), ex.getMessage());
                     targetInspection.setAiSuggestion(null);
                 }
-            } else {
-                if (audit.allInspectionsCompleted()) {
-                    audit.setStatus(AuditStatus.COMPLETED);
-                }
             }
         }
         targetInspection.setResultDataPath(event.getResultDataPath());
@@ -66,6 +62,7 @@ public class AiDiagnosisCompletedEventConsumer {
         targetInspection.setStatus(
                 event.isDefect() ? InspectionStatus.ABNORMAL : InspectionStatus.NORMAL
         );
+        audit.checkInspectionsCompleted();
         auditRepository.save(audit);
     }
 }

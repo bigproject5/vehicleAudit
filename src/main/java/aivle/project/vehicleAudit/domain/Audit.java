@@ -49,7 +49,9 @@ public class Audit {
         status = AuditStatus.IN_PROGRESS;
     }
 
-    public boolean allInspectionsCompleted() {
-        return inspections.stream().allMatch(Inspection::isCompleted);
+    public void checkInspectionsCompleted() {
+        if (inspections.stream().allMatch(Inspection::isCompleted)) {
+            this.status = AuditStatus.COMPLETED;
+        }
     }
 }

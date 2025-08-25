@@ -126,6 +126,7 @@ public class Inspection {
         }
         task.done(workerId);
         this.status = InspectionStatus.COMPLETED;
+        audit.checkInspectionsCompleted();
     }
 
     public void modifyResolve(Long workerId, String resolve) {

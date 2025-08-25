@@ -92,6 +92,8 @@ public class AuditServiceImpl implements AuditService {
     public Inspection finishTaskOnInspection(Long inspectionId, Long workerId, String workerName) {
         Inspection inspection = inspectionRepository.findWithTaskById(inspectionId)
                 .orElseThrow(() -> new RuntimeException("해당 검사(Inspection)가 존재하지 않습니다."));
+        Audit audit = auditRepository.findWithInspectionsById(inspection.getAudit().getId())
+                .orElseThrow(() -> new RuntimeException("해당 테스트(Audit)가 존재하지 않습니다."));
         inspection.finishTask(workerId);
         WorkerTaskCompletedEventDTO event = new WorkerTaskCompletedEventDTO(
                 inspection.getTask().getWorkerName(),
