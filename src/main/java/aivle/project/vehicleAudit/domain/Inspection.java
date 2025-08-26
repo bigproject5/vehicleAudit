@@ -56,7 +56,7 @@ public class Inspection {
     private String resultDataPath;
 
     @Lob
-    @Column(name = "solution")
+    @Column(name = "solution", columnDefinition = "TEXT")
     private String aiSuggestion;
 
     @Enumerated(EnumType.STRING)
