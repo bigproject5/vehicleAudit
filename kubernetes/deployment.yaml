@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: vehicleaudit
-        image: # Replace with your actual image
+        image: 956463122808.dkr.ecr.ap-northeast-2.amazonaws.com/vehicleaudit:v4
         ports:
         - containerPort: 8080
         env:
