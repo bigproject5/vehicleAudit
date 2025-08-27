@@ -21,6 +21,7 @@ import aivle.project.vehicleAudit.domain.Inspection;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -157,6 +158,10 @@ public class AuditServiceImpl implements AuditService {
         // status 필터링
         if (status != null) {
             builder.and(inspection.status.eq(status));
+        }
+
+        if(Objects.requireNonNull(inspectionType).equals(InspectionType.ALL)) {
+            return inspectionRepository.findAll(pageable);
         }
 
         // workerId 필터링 (task 조인 필요)

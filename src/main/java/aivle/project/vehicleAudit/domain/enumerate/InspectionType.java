@@ -6,5 +6,6 @@ public enum InspectionType {
     WIPER,
     ENGINE,
     EM_WAVE,
-    WASHER_FLUID;
+    WASHER_FLUID,
+    ALL,
 }
