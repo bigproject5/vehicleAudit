@@ -8,4 +8,5 @@ public enum InspectionType {
     EM_WAVE,
     WASHER_FLUID,
     ALL,
+    DEV
 }

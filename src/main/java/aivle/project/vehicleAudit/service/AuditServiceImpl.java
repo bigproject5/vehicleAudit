@@ -160,9 +160,9 @@ public class AuditServiceImpl implements AuditService {
             builder.and(inspection.status.eq(status));
         }
 
-        if(Objects.requireNonNull(inspectionType).equals(InspectionType.ALL)) {
-            return inspectionRepository.findAll(pageable);
-        }
+//        if(inspectionType != null && (inspectionType.equals(InspectionType.ALL) || inspectionType.equals(InspectionType.DEV))) {
+//            return inspectionRepository.findAll(builder, pageable);
+//        }
 
         // workerId 필터링 (task 조인 필요)
         if (workerId != null) {
