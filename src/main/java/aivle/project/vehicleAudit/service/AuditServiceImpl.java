@@ -86,7 +86,6 @@ public class AuditServiceImpl implements AuditService {
         return inspectionRepository.save(inspection);
     }
 
-    //TODO: 작업 완료 시 Audit의 모든 Inspection이 완료되었는지 확인하고, 모든 Inspection이 완료되었다면 Audit의 상태를 변경하는 로직 추가 필요
     @Override
     @Transactional
     public Inspection finishTaskOnInspection(Long inspectionId, Long workerId, String workerName) {

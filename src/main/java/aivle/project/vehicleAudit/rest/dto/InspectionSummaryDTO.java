@@ -13,6 +13,7 @@ public record InspectionSummaryDTO(
         Long workerId,
         String workerName,
         LocalDateTime taskStartedAt,
-        LocalDateTime taskFinishedAt
+        LocalDateTime taskFinishedAt,
+        String collectDataPath
 ) {
 }

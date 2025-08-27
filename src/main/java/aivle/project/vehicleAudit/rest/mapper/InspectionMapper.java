@@ -24,5 +24,6 @@ public interface InspectionMapper {
     @Mapping(target = "taskStartedAt", source = "task.startedAt")
     @Mapping(target = "taskFinishedAt", source = "task.endedAt")
     @Mapping(target = "inspectionId", source = "id")
+    @Mapping(target = "collectDataPath", source = "collectDataPath")
     InspectionSummaryDTO toSummaryDto(Inspection inspection);
 }
