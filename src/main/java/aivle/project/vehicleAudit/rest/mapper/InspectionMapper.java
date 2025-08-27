@@ -17,6 +17,7 @@ public interface InspectionMapper {
 
     @Mapping(target = "inspectionId", source = "id")
     @Mapping(target = "isDefect", source = "defect")
+    @Mapping(target = "collectDataPath", source = "collectDataPath")
     InspectionDTO toDto(Inspection inspection);
 
     @Mapping(target = "workerId", source = "task.workerId")
