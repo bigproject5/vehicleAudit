@@ -118,7 +118,12 @@ public class AuditController {
     @GetMapping("/audits")
     public ResponseEntity<ResponseDTO<Page<AuditSummaryDTO>>> getAllAudits(Pageable pageable) {
         log.info("Received request to get all audits with pageable: {}", pageable);
-        Page<Audit> audits = auditService.findAll(pageable);
+        Pageable sortedPageable = PageRequest.of(
+                pageable.getPageNumber(),
+                pageable.getPageSize(),
+                Sort.by(Sort.Direction.DESC, "id")
+        );
+        Page<Audit> audits = auditService.findAll(sortedPageable);
         Page<AuditSummaryDTO> auditDTOs = audits.map(auditMapper::toSummaryDto);
         return ResponseEntity.ok().body(ResponseDTO.success(auditDTOs));
     }
