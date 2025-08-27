@@ -9,6 +9,7 @@ public record InspectionSummaryDTO(
         String auditId,
         String inspectionType,
         String status,
+        String collectDataPath,
         boolean isDefect,
         Long workerId,
         String workerName,
